@@ -18,6 +18,12 @@ function pulse_red {
   blink1-tool --play 1
 }
 
+function pulse_yellow {
+  blink1-tool --millis $INTERVAL --savergb 0xff,0xcc,0x00,0
+  blink1-tool --millis $INTERVAL --savergb 0x00,0x00,0x00,1
+  blink1-tool --play 1
+}
+
 function pulse_white {
   blink1-tool --millis $INTERVAL --savergb 0xff,0xff,0xff,0
   blink1-tool --millis $INTERVAL --savergb 0x00,0x00,0x00,1
@@ -29,6 +35,8 @@ if [ $first_line == "success" ]; then
   pulse_green
 elif [ $first_line == "failed" ]; then
   pulse_red
+elif [ $first_line == "pending" ]; then
+  pulse_yellow
 else
   pulse_white
 fi
