@@ -7,26 +7,26 @@ if [ $1 -a $1 == "FAST" ]; then
 fi
 
 function pulse_green {
-  blink1-tool --millis $INTERVAL --savergb 0x00,0xff,0x00,0
-  blink1-tool --millis $INTERVAL --savergb 0x00,0x00,0x00,1
+  blink1-tool --millis $INTERVAL --savepattline 0x00,0xff,0x00,0
+  blink1-tool --millis $INTERVAL --savepattline 0x00,0x00,0x00,1
   blink1-tool --play 1
 }
 
 function pulse_red {
-  blink1-tool --millis $INTERVAL --savergb 0xff,0x00,0x00,0
-  blink1-tool --millis $INTERVAL --savergb 0x00,0x00,0x00,1
+  blink1-tool --millis $INTERVAL --savepattline 0xff,0x00,0x00,0
+  blink1-tool --millis $INTERVAL --savepattline 0x00,0x00,0x00,1
   blink1-tool --play 1
 }
 
 function pulse_yellow {
-  blink1-tool --millis $INTERVAL --savergb 0xff,0xcc,0x00,0
-  blink1-tool --millis $INTERVAL --savergb 0x00,0x00,0x00,1
+  blink1-tool --millis $INTERVAL --savepattline 0xff,0xcc,0x00,0
+  blink1-tool --millis $INTERVAL --savepattline 0x00,0x00,0x00,1
   blink1-tool --play 1
 }
 
 function pulse_white {
-  blink1-tool --millis $INTERVAL --savergb 0xff,0xff,0xff,0
-  blink1-tool --millis $INTERVAL --savergb 0x00,0x00,0x00,1
+  blink1-tool --millis $INTERVAL --savepattline 0xff,0xff,0xff,0
+  blink1-tool --millis $INTERVAL --savepattline 0x00,0x00,0x00,1
   blink1-tool --play 1
 }
 
