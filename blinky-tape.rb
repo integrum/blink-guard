@@ -35,6 +35,7 @@ class BlinkyTape
   end
 
   def shutdown!
+    serial_port.puts 'sb'
     serial_port.flush
     serial_port.close
   end
@@ -57,7 +58,7 @@ class BlinkyTape
   end
 
   def serial_port
-    @serial_port ||= SerialPort.new '/dev/tty.usbmodemfd1211', 9600, 8, 1, SerialPort::NONE
+    @serial_port ||= SerialPort.new '/dev/ttyACM0', 9600, 8, 1, SerialPort::NONE
   end
 
   def solid_command
