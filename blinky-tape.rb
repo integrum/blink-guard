@@ -2,71 +2,56 @@
 require "serialport"
 
 class BlinkyTape
-  COLORS = {
-    'success' => 'g',
-    'failed'  => 'r',
-    'pending' => 'y',
-  }
-
-  def initialize(options={})
-    @filename = options[:filename]
+  def blue!
+    write! 'sb'
   end
 
-  def blue!
-    serial_port.puts 'sb'
+  def color!(color)
+    write! color
   end
 
   def flash!
-    solid!
-    serial_port.puts flash_command
+    write! 'f'
   end
 
   def pulse!
-    solid!
-    serial_port.puts pulse_command
+    write! 'p'
   end
 
-  def rainbow!
-    serial_port.puts 'xx'
-  end
-
-  def solid!
-    serial_port.puts solid_command
-  end
-
-  def shutdown!
-    serial_port.puts 'sb'
+  def quit!
     serial_port.flush
     serial_port.close
   end
 
+  def rainbow!
+    write! 'x'
+  end
+
+  def shutdown!
+    blue!
+    quit!
+  end
+
+  def solid!
+    write! 's'
+  end
+
+  def test_sequence!
+    write! 't'
+  end
+
+  def write!(*commands)
+    commands.each do |command|
+      serial_port.puts command
+    end
+  end
+
   protected
-  def color
-    COLORS[line] || 'w'
-  end
-
-  def flash_command
-    "f#{color}"
-  end
-
-  def line
-    File.open(@filename, &:readline).strip
-  end
-
-  def pulse_command
-    "p#{color}"
-  end
-
   def serial_port
     @serial_port ||= SerialPort.new '/dev/ttyACM0', 9600, 8, 1, SerialPort::NONE
   end
 
-  def solid_command
-    "s#{color}"
+  def valid_port
+    return @valid_port if @valid_port
   end
-end
-
-if $0 == __FILE__
-  @blinky_tape = BlinkyTape.new
-  @blinky_tape.blue!
 end
